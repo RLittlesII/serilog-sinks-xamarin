@@ -48,6 +48,9 @@ namespace Serilog.Sinks.Xamarin
     // In most extension contexts, System.Console.WriteLine is not useful, as it is not readable.
     // Invoking NSLog directly will allow the message to appear directly in the System Log found in
     // the "Console" application.
+    /// <summary>
+    /// https://github.com/xamarin/mac-samples/blob/master/ExtensionSamples/Utilities/NSLogHelper.cs
+    /// </summary>
     public static class NSLogHelper
     {
         [DllImport("/System/Library/Frameworks/Foundation.framework/Foundation")]
