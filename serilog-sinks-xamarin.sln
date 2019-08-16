@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Serilog.Sinks.Xamarin.Droid
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Serilog.Sinks.Xamarin.iOS", "src\Serilog.Sinks.Xamarin.iOS\Serilog.Sinks.Xamarin.iOS.csproj", "{7E96D14B-2224-4EB9-B26B-6306D225024F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Serilog.Sinks.Xamarin.Mac", "src\Serilog.Sinks.Xamarin.Mac\Serilog.Sinks.Xamarin.Mac.csproj", "{4CBFB6E6-3FBB-4DD3-9E2C-39A90317662E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{7E96D14B-2224-4EB9-B26B-6306D225024F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7E96D14B-2224-4EB9-B26B-6306D225024F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7E96D14B-2224-4EB9-B26B-6306D225024F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4CBFB6E6-3FBB-4DD3-9E2C-39A90317662E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4CBFB6E6-3FBB-4DD3-9E2C-39A90317662E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4CBFB6E6-3FBB-4DD3-9E2C-39A90317662E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4CBFB6E6-3FBB-4DD3-9E2C-39A90317662E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
