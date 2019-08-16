@@ -40,7 +40,7 @@ namespace Serilog.Sinks.Xamarin
 		{
 			if (logEvent == null) throw new ArgumentNullException("logEvent");
 			var renderSpace = new StringWriter();
-			_textFormatter.Format(logEvent, renderSpace);
+            _textFormatter.Format(logEvent, renderSpace);
             NSLogHelper.NSLog(renderSpace.ToString ());
 		}
     }
