@@ -20,35 +20,58 @@ using Serilog.Sinks.Xamarin;
 
 namespace Serilog
 {
-	/// <summary>
-	/// Adds WriteTo.NSLog() to the logger configuration.
-	/// </summary>
-	public static class LoggerConfigurationXamarinExtensions
+    /// <summary>
+    /// Adds WriteTo.NSLog() to the logger configuration.
+    /// </summary>
+    public static class LoggerConfigurationXamarinExtensions
     {
-		const string DefaultNSLogOutputTemplate = "[{Level}] {Message:l}{NewLine:l}{Exception:l}";
+        const string DefaultNSLogOutputTemplate = "[{Level}] {Message:l}{NewLine:l}{Exception:l}";
 
-	    /// <summary>
-	    /// Adds a sink that writes log events to a Azure DocumentDB table in the provided endpoint.
-	    /// </summary>
-	    /// <param name="sinkConfiguration">The configuration being modified.</param>
-	    /// <param name="restrictedToMinimumLevel">The minimum log event level required in order to write an event to the sink.</param>
-	    /// <param name="outputTemplate">Template for the output events</param>
-	    /// <param name="formatProvider">Supplies culture-specific formatting information, or null.</param>
-	    /// <exception cref="ArgumentNullException">A required parameter is null.</exception>
-	    public static LoggerConfiguration NSLog(this LoggerSinkConfiguration sinkConfiguration,
-			LogEventLevel restrictedToMinimumLevel = LevelAlias.Minimum,
-			string outputTemplate = DefaultNSLogOutputTemplate,
-			IFormatProvider formatProvider = null) {
+        /// <summary>
+        /// Adds a sink that writes log events to the NSLog.
+        /// </summary>
+        /// <param name="sinkConfiguration">The configuration being modified.</param>
+        /// <param name="restrictedToMinimumLevel">The minimum log event level required in order to write an event to the sink.</param>
+        /// <param name="outputTemplate">Template for the output events</param>
+        /// <param name="formatProvider">Supplies culture-specific formatting information, or null.</param>
+        /// <exception cref="ArgumentNullException">A required parameter is null.</exception>
+        public static LoggerConfiguration NSLog(this LoggerSinkConfiguration sinkConfiguration,
+            LogEventLevel restrictedToMinimumLevel = LevelAlias.Minimum,
+            string outputTemplate = DefaultNSLogOutputTemplate,
+            IFormatProvider formatProvider = null)
+        {
+            if (sinkConfiguration == null)
+                throw new ArgumentNullException(nameof(sinkConfiguration));
 
-			if (sinkConfiguration == null)
-				throw new ArgumentNullException ("sinkConfiguration");
+            if (outputTemplate == null)
+                throw new ArgumentNullException(nameof(outputTemplate));
 
-			if (outputTemplate == null)
-				throw new ArgumentNullException ("outputTemplate");
+            var formatter = new MessageTemplateTextFormatter(outputTemplate, formatProvider);
+            return sinkConfiguration.Sink(new NSLogSink(formatter), restrictedToMinimumLevel);
+        }
 
-			var formatter = new MessageTemplateTextFormatter (outputTemplate, formatProvider);
-			return sinkConfiguration.Sink (new NSLogSink (formatter), restrictedToMinimumLevel);
-		}
-	}
+        /// <summary>
+        /// Adds a sink that writes log events to the OSLog.
+        /// </summary>
+        /// <param name="sinkConfiguration">The configuration being modified.</param>
+        /// <param name="restrictedToMinimumLevel">The minimum log event level required in order to write an event to the sink.</param>
+        /// <param name="outputTemplate">Template for the output events</param>
+        /// <param name="formatProvider">Supplies culture-specific formatting information, or null.</param>
+        /// <exception cref="ArgumentNullException">A required parameter is null.</exception>
+        public static LoggerConfiguration OSLog(this LoggerSinkConfiguration sinkConfiguration,
+            LogEventLevel restrictedToMinimumLevel = LevelAlias.Minimum,
+            string outputTemplate = DefaultNSLogOutputTemplate,
+            IFormatProvider formatProvider = null)
+        {
+            if (sinkConfiguration == null)
+                throw new ArgumentNullException(nameof(sinkConfiguration));
+
+            if (outputTemplate == null)
+                throw new ArgumentNullException(nameof(outputTemplate));
+
+            var formatter = new MessageTemplateTextFormatter(outputTemplate, formatProvider);
+            return sinkConfiguration.Sink(new OSLogSink(formatter), restrictedToMinimumLevel);
+        }
+    }
 }
 

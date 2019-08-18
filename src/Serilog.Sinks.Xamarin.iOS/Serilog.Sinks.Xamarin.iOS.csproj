@@ -38,6 +38,7 @@
     <Compile Include="Sinks\Xamarin\NSLogSink.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="LoggerConfigurationXamarinExtensions.cs" />
+    <Compile Include="Sinks\Xamarin\OSLogSink.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
