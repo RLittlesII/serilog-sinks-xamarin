@@ -30,7 +30,7 @@ namespace Serilog.Sinks.Xamarin
 		{
 			if (textFormatter == null)
             {
-                throw new ArgumentNullException("textFormatter");
+                throw new ArgumentNullException(nameof(textFormatter));
             }
 
             _textFormatter = textFormatter;
@@ -38,7 +38,11 @@ namespace Serilog.Sinks.Xamarin
 
 		public void Emit(LogEvent logEvent)
 		{
-			if (logEvent == null) throw new ArgumentNullException("logEvent");
+            if (logEvent == null)
+            {
+                throw new ArgumentNullException(nameof(logEvent));
+            }
+
 			var renderSpace = new StringWriter();
             _textFormatter.Format(logEvent, renderSpace);
             NSLogHelper.NSLog(renderSpace.ToString ());
@@ -55,6 +59,8 @@ namespace Serilog.Sinks.Xamarin
     {
         [DllImport("/System/Library/Frameworks/Foundation.framework/Foundation")]
         extern static void NSLog(IntPtr format, [MarshalAs(UnmanagedType.LPStr)] string s);
+
+        extern static void os_log_with_type(OS_LOG_DEFAULT, OS_LOG_TYPE_DEFAULT, "%{public}s", message);
 
         public static void NSLog(string format, params object[] args)
         {

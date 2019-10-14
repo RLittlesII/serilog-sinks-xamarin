@@ -37,7 +37,11 @@ namespace Serilog.Sinks.Xamarin
 		/// <exception cref="ArgumentNullException">The text formatter must be provided</exception>
 		public AndroidLogSink(ITextFormatter textFormatter)
 		{
-			if (textFormatter == null) throw new ArgumentNullException("textFormatter");
+            if (textFormatter == null)
+            {
+                throw new ArgumentNullException(nameof(textFormatter));
+            }
+
 			_textFormatter = textFormatter;
 		}
 
@@ -47,11 +51,16 @@ namespace Serilog.Sinks.Xamarin
         /// <param name="logEvent">The log event to write.</param>
         public void Emit(LogEvent logEvent)
 		{
-			if (logEvent == null) throw new ArgumentNullException("logEvent");
+			if (logEvent == null) throw new ArgumentNullException(nameof(logEvent));
 			var renderSpace = new StringWriter();
 			_textFormatter.Format(logEvent, renderSpace);
 
-			var tag = logEvent.Properties.Where(x => x.Key == Constants.SourceContextPropertyName).Select(x => x.Value.ToString("l", null)).FirstOrDefault() ?? "";
+			var tag =
+                logEvent
+                    .Properties
+                    .Where(x => x.Key == Constants.SourceContextPropertyName)
+                    .Select(x => x.Value.ToString("l", null))
+                    .FirstOrDefault() ?? string.Empty;
 
 			switch (logEvent.Level) {
 				case LogEventLevel.Debug:
